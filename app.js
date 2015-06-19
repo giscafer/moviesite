@@ -28,7 +28,6 @@ app.get('/', function (req, res) {
             movies: movies
         })
     })
-
 })
 //detail page
 app.get('/movie/:id', function (req, res) {
