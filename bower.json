@@ -1,0 +1,27 @@
+{
+  "name": "moviedemo",
+  "version": "0.0.1",
+  "authors": [
+    "giscafer <giscafer@outlook.com>"
+  ],
+  "description": "a simple movie site",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "movie",
+    "nodejs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
