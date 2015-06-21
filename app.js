@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var mongoose=require('mongoose')
 var _=require('underscore')
 var Movie=require('./models/movie')
+var User=require('./models/user')
 var port = process.env.PORT || 3000
 var app = express()
 
@@ -10,12 +11,14 @@ mongoose.connect('mongodb://localhost:27017/imooc')
 
 app.set('views', './views/pages')
 app.set('view engine', 'jade')
-app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/x-www-form-urlencoded ,false的时候无法req.body.user的值
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(express.static(__dirname + '/views'));
 app.use('/public', express.static(__dirname + '/public'));
 app.listen(port);
 app.locals.moment=require('moment')
-console.log('imooc started on port ' + port);
+console.log('moviesite started on port ' + port);
 
 //index page
 app.get('/', function (req, res) {
@@ -24,11 +27,49 @@ app.get('/', function (req, res) {
             console.log(err)
         }
         res.render('index', {
-            title: 'imooc 首页',
+            title: 'moviesite 首页',
             movies: movies
         })
     })
+
 })
+// signup
+app.post('/user/signup',function(req,res){
+    var _user=req.body.user;
+    User.find({name:_user.name},function(err,user){
+        if(err) console.log(err);
+        if(user){//已存在注册的用户名，则跳转首页
+            return res.redirect('/')
+        }else{
+            var user=new User(_user);
+            user.save(function(err,user){
+                if(err){
+                    console.log(err)
+                }
+                res.redirect('/admin/userlist');
+            })
+        }
+    })
+    
+})
+//list page
+app.get('/admin/userlist', function (req, res) {
+   User.fetch(function(err,users){
+    if(err){
+        console.log(err)
+    }
+    res.render('userlist', {
+       title: 'moviesite 用户列表页',
+       users:users
+   })
+})
+})
+///user/login
+app.post('/user/login',function(req,res){
+    var _user=req.body.user;
+    console.log(_user);
+})
+
 //detail page
 app.get('/movie/:id', function (req, res) {
     var id=req.params.id
@@ -42,7 +83,7 @@ app.get('/movie/:id', function (req, res) {
 //admin page
 app.get('/admin/movie', function (req, res) {
     res.render('admin', {
-        title: 'imooc 后台录入页',
+        title: 'moviesite 后台录入页',
         movie: {
             director: '',
             country: '',
@@ -113,7 +154,7 @@ app.get('/admin/list', function (req, res) {
         console.log(err)
     }
     res.render('list', {
-       title: 'imooc 列表页',
+       title: 'moviesite 列表页',
        movies:movies
    })
 })
@@ -141,7 +182,7 @@ app.get('/admin/update/:id',function(req, res){
         Movie.findById(id,function(err,movie){
             console.log(movie.summary)
             res.render('admin',{
-                title:'imooc 后台更新页',
+                title:'moviesite 后台更新页',
                 movie:movie
             })
         })
@@ -150,7 +191,7 @@ app.get('/admin/update/:id',function(req, res){
 //login
 app.get('/login',function(req,res){
     res.render('login',{
-        title:'imooc 登录页',
+        title:'moviesite 登录页',
     })
 })
 //login test
@@ -160,6 +201,6 @@ app.post('/login/check',function(req,res){
    console.log("-----------"+req.body.movie)
    var movieObj=req.body.username
    res.render('login',{
-    title:'imooc 登录页',
+    title:'moviesite 登录页',
 })
 })
