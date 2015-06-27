@@ -37,10 +37,13 @@ app.get('/', function (req, res) {
 app.post('/user/signup',function(req,res){
     var _user=req.body.user;
     User.find({name:_user.name},function(err,user){
+        console.log(user);
         if(err) console.log(err);
-        if(user){//已存在注册的用户名，则跳转首页
+        if(user.name){
+            console.log("已存在注册的用户名，则跳转首页")
             return res.redirect('/')
         }else{
+            console.log("注册用户！")
             var user=new User(_user);
             user.save(function(err,user){
                 if(err){
@@ -67,8 +70,28 @@ app.get('/admin/userlist', function (req, res) {
 ///user/login
 app.post('/user/login',function(req,res){
     var _user=req.body.user;
-    console.log(_user);
-})
+    var name=_user.name;
+    var password=_user.password;
+
+    User.findOne({name:name},function(err,user){
+        if(err)  console.log(err);
+        if(!user){
+            return res.redirect('/');
+        }
+        user.comparePassword(password,function(err,isMatch){
+            if(err){
+                console.log(err);
+            }
+            if(isMatch){
+                console.log('Password is matched')
+                return res.redirect('/')
+            }else{
+                console.log('Password is not matched')
+            }
+        })
+    });
+
+});
 
 //detail page
 app.get('/movie/:id', function (req, res) {
@@ -98,7 +121,6 @@ app.get('/admin/movie', function (req, res) {
 })
 //admin post movie
 app.post('/admin/movie/new',function(req, res){
-    console.log("-----------"+req.body._id)
     var id=req.body._id
     var movieObj={
         _id:req.body._id,
@@ -187,20 +209,4 @@ app.get('/admin/update/:id',function(req, res){
             })
         })
     }
-})
-//login
-app.get('/login',function(req,res){
-    res.render('login',{
-        title:'moviesite 登录页',
-    })
-})
-//login test
-app.post('/login/check',function(req,res){
-   console.log("-----------"+req.body.username)
-   var id=req.body.movie
-   console.log("-----------"+req.body.movie)
-   var movieObj=req.body.username
-   res.render('login',{
-    title:'moviesite 登录页',
-})
-})
+});
