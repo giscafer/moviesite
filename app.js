@@ -35,15 +35,21 @@ app.use('/public', express.static(__dirname + '/public'));
 app.listen(port);
 app.locals.moment=require('moment')
 console.log('moviesite started on port ' + port);
+//pre hander user持久化逻辑预处理
+app.use(function(req,res,next){
+	var _user=req.session.user;
+	if(_user){
+		app.locals.user=_user;//将user信息放到本地变量
+	}
+	return next();
+	
+})
 
 //index page
 app.get('/', function (req, res) {
 	console.log('---------------user in session-----------------');
 	console.log(req.session.user);
-	var _user=req.session.user;
-	if(_user){
-		app.locals.user=_user;//将user信息放到本地变量
-	}
+	
 	Movie.fetch(function(err,movies){
 		if(err){
 			console.log(err)
