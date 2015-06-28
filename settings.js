@@ -1,0 +1,1 @@
+module.exports = { cookieSecret: 'mymovie', db: 'moviesite', host: 'localhost',port:3000 }; 
