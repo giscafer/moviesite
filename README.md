@@ -1,4 +1,4 @@
-# moviesite 
+# moviesite V0.1
 ### nodejs学习的一个简单的电影站点demo
 
 ###使用技术：
@@ -10,7 +10,7 @@
 
 集成了grunt等
 
-版本：
+使用软件版本：
 
 nodejs v0.12.2
 
