@@ -21,7 +21,9 @@ module.exports = function(app) {
 		//userlist page
 	app.get('/admin/userlist', User.list)
 		///user/login
-	app.post('/user/login', User.login);
+	app.post('/user/login', User.singin);
+	app.get('/signin',User.showSignin);
+	app.get('/signup',User.showSignup);
 	///logout
 	app.get('/logout', User.logout)
 
