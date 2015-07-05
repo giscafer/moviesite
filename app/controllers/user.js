@@ -64,7 +64,7 @@ exports.logout = function(req, res) {
     // signup
 exports.signup = function(req, res) {
     var _user = req.body.user;
-    User.find({
+    User.findOne({
         name: _user.name
     }, function(err, user) {
         if (err) {

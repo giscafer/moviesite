@@ -2,6 +2,7 @@
 var Index = require('../app/controllers/index')
 var User = require('../app/controllers/user')
 var Movie = require('../app/controllers/movie')
+var Comment = require('../app/controllers/comment')
 
 module.exports = function(app) {
 	//pre hander user持久化逻辑预处理
@@ -39,6 +40,10 @@ module.exports = function(app) {
 		//list delete movie
 	app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del)
 		//admin update movie
-	app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update);
+	app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update)
+
+	//Comment
+	
+	app.post('/user/comment',User.signinRequired,Comment.save)
 
 }

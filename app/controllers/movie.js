@@ -1,13 +1,21 @@
 var _ = require('underscore')
 var Movie = require('../models/movie')
+var Comment = require('../models/comment')
 	//detail page
 exports.detail = function(req, res) {
 		var id = req.params.id
 		Movie.findById(id, function(err, movie) {
-			res.render('detail', {
-				title: 'moviesite ' + movie.title,
-				movie: movie
-			})
+			Comment
+				.find({'movie':id})
+				.populate('from','name')//对每个评论中的from（user._id进行查询name值）
+				.populate('reply.from reply.to','name')//对每个评论中的from（user._id进行查询name值）
+				.exec(function(err,comments){
+					res.render('detail',{
+						title: 'moviesite ' + movie.title,
+						movie: movie,
+						comments: comments,
+					})
+				})
 		})
 	}
 	//admin page
