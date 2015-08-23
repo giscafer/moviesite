@@ -1,0 +1,19 @@
+extend ../layout
+
+block content
+	.container
+		.row
+		table.table.table-hover.table-bordered
+			thead
+				tr
+					th 分类名字
+					th 录入时间
+					th 删除
+			tbody
+				if categories && categories.length>0
+					each cat in categories
+						tr(class="cat-id-#{cat._id}")
+							td #{cat.name}
+							td #{moment(cat.meta.updateAt).format('MM/DD/YYYY')}
+							td 
+								button.btn.btn-danger.del(type="button",data-id="#{cat._id}") 删除
