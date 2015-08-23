@@ -1,6 +1,7 @@
 var mongoose=require('mongoose')
-
-var MovieSchema=new mongoose.Schema({
+var Schema=mongoose.Schema;
+var ObjectId=Schema.Types.ObjectId
+var MovieSchema=new Schema({
 	director:String,
 	title:String,
 	language:String,
@@ -9,6 +10,10 @@ var MovieSchema=new mongoose.Schema({
 	flash:String,
 	poster:String,
 	year:Number,
+	category:{
+		type:ObjectId,
+		ref:'Category'
+	},
 	meta:{//更新数据的时候的时间记录
 		createAt:{//创建时间
 			type:Date,
