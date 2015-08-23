@@ -1,16 +1,14 @@
-# moviesite V0.1
-### nodejs学习的一个简单的电影站点demo
+# moviesite V0.2.1
+
+### nodejs开发一个关于电影的小站点
 
 ###使用技术：
+
 >1、NodeJS+Express
 
 >2、MongoDB
 
-新增网站内容，编辑和更新，用户注册和登录等。
-
-集成了grunt等
-
-使用软件版本：
+>3、模板引擎Jade
 
 nodejs v0.12.2
 
@@ -18,7 +16,19 @@ npm v2.7.4
 
 mongodb v3.0
 
+其他依赖详细见：package.json文件
+
+###使用方法
+
+>1、安装必备环境后，使用npm install 安装项目中的所有依赖模块
+
+>2、使用node app或grunt启动项目
 
 ###问题
 
-1、电影分类功能：修改电影分类会重复添加电影；
+1、安装bcrypt报错node-gyp rebuild解决方法
+	http://blog.csdn.net/allgis/article/details/46574493
+
+###更新日志
+
+>2015年8月23日23:00:52 修改更新电影时重复添加电影到分类问题；
