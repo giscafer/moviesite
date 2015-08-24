@@ -1,9 +1,15 @@
 extend ../layout
-
 block content
 	.container
 		.row
 			form.form-horizontal(method='post',action="/admin/movie/new")
+				.form-group
+					label.col-sm-2.control-label(for="inputTitle") 豆瓣同步
+					.col-sm-10
+						input#douban.col-sm-5.form-control(type="text" style="width:300px")
+						.col-sm-1
+							button#doubanCollect.btn.btn-info(type='button') 采集
+						label.control-label.col-sm-4 (输入豆瓣电影ID后，可自动采集数据)
 				if movie._id
 					input(type="hidden",name="movie[_id]",value="#{movie._id}")
 				.form-group
