@@ -5,11 +5,11 @@ var _ = require('lodash');
     //admin page
 exports.new = function(req, res) {
         res.render('category_admin', {
-            title: '电影狙击手 后台分类录入页',
+            title: '后台分类录入页',
             category: {}
         })
     }
-    //admin post movie
+    //admin post category
 exports.save = function(req, res) {
         var _category = req.body.category
         var category = new Category(_category)
@@ -31,12 +31,12 @@ exports.list = function(req, res) {
             console.log(categories[0].name)
             console.log(categories)
             res.render('categorylist', {
-                title: 'moviesite 分类列表页',
+                title: '分类列表页',
                 categories: categories
             })
         })
     }
-    //list delete movie
+    //list delete category
 exports.del = function(req, res) {
     var id = req.query.id
 

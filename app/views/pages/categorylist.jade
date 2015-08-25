@@ -16,4 +16,4 @@ block content
 							td #{cat.name}
 							td #{moment(cat.meta.updateAt).format('MM/DD/YYYY')}
 							td 
-								button.btn.btn-danger.del(type="button",data-id="#{cat._id}") 删除
+								button.btn.btn-danger.del.categoryDel(type="button",data-id="#{cat._id}") 删除

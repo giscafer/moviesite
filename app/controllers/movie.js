@@ -5,6 +5,7 @@ var Category = require("../models/category");
 var CategoryController = require("./category");
 var Comment = require('../models/comment');
 var Eventproxy = require('eventproxy');
+var Config=require('../../config');
 //detail page
 exports.detail = function(req, res) {
         var id = req.params.id
@@ -17,7 +18,7 @@ exports.detail = function(req, res) {
                 .populate('reply.from reply.to', 'name') //对每个评论中的from（user._id进行查询name值）
                 .exec(function(err, comments) {
                     res.render('detail', {
-                        title: 'moviesite ' + movie.title,
+                        title: movie.title,
                         movie: movie,
                         comments: comments,
                     })
@@ -28,7 +29,7 @@ exports.detail = function(req, res) {
 exports.new = function(req, res) {
         Category.find({}, function(err, categories) {
             res.render('admin', {
-                title: 'moviesite 后台录入页',
+                title: '后台录入页',
                 categories: categories,
                 movie: {}
             });
@@ -58,7 +59,7 @@ exports.save = function(req, res, next) {
                         //查询不到电影分类的时候，创建分类
                         if (!_category) {
                             var category = new Category({
-                                name: movieObj.categoryName || '未分类',
+                                name: movieObj.categoryName || '其他',
                                 movies: [movie._id]
                             });
                             category.save(function(err, category) {
@@ -87,11 +88,11 @@ exports.save = function(req, res, next) {
         } else { //新增
             _movie = new Movie(movieObj)
             var categoryId = _movie.category;
-            console.log('categoryID---' + categoryId);
+            // console.log('categoryID---' + categoryId);
             //如果没有选择分类，则新建分类
             if (!categoryId) {
                 var category = new Category({
-                    name: movieObj.categoryName || '未分类',
+                    name: movieObj.categoryName || '其他',
                     movies: []
                 });
                 category.save(function(err, category) {
@@ -133,7 +134,7 @@ exports.list = function(req, res) {
                 console.log(err)
             }
             res.render('list', {
-                title: 'moviesite 列表页',
+                title: '电影列表页',
                 movies: movies
             })
         })
@@ -165,7 +166,7 @@ exports.update = function(req, res) {
         Movie.findById(id, function(err, movie) {
             Category.find({}, function(err, categories) {
                 res.render('admin', {
-                    title: 'moviesite 后台更新页',
+                    title: '后台更新页',
                     movie: movie,
                     categories: categories
                 });

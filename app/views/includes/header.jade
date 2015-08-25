@@ -3,10 +3,21 @@
 		.page-header
 			h1=title
 			small 电影狙击手
-.navbar.navbar-default.navbar-fixed-bottom
+.navbar.navbar-default.navbar-fixed-top
 	.container
 		.navbar-header
 			a.navbar-brand(href='/') 电影狙击手
+		ul.nav.navbar-nav
+			li.active
+				a(href='/') 网站首页
+			li
+				a(href='/admin/movie/list') 电影管理
+			li
+				a(href='/admin/category/list') 分类管理
+			li
+				a(href='/admin/movie') 添加电影
+			li
+				a(href='/admin/category/new') 添加分类
 		if user
 			p.navbar-text.navbar-right
 				span 欢迎您，#{user.name}
