@@ -15,40 +15,42 @@ module.exports = function(app) {
 	})
 
 	//index page
-	app.get('/', Index.index)
+	app.get('/', Index.index);
 
 	//User
 		// signup
-	app.post('/user/signup', User.signup)
+	app.post('/user/signup', User.signup);
 		//userlist page
-	app.get('/admin/user/list', User.signinRequired,User.adminRequired,User.list)
+	app.get('/admin/user/list', User.signinRequired,User.adminRequired,User.list);
 		///user/login
-	app.post('/user/login', User.singin);
+	app.post('/user/login', User.singin);;
 	app.get('/signin',User.showSignin);
 	app.get('/signup',User.showSignup);
 	///logout
-	app.get('/logout', User.logout)
+	app.get('/logout', User.logout);
 
 	//Movie
 		//detail page
-	app.get('/movie/:id', Movie.detail)
+	app.get('/movie/:id', Movie.detail);
 		//admin page
-	app.get('/admin/movie',User.signinRequired,User.adminRequired, Movie.new)
+	app.get('/admin/movie',User.signinRequired,User.adminRequired, Movie.new);
 		//admin post movie
-	app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.save)
+	app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.save);
 		//list page
-	app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list)
+	app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list);
 		//list delete movie
-	app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del)
+	app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del);
 		//admin update movie
-	app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update)
+	app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update);
 
 	//Comment
 	
-	app.post('/user/comment',User.signinRequired,Comment.save)
+	app.post('/user/comment',User.signinRequired,Comment.save);
 	//category
-	app.get('/admin/category/new',User.signinRequired,User.adminRequired,Category.new)
-	app.post('/admin/category',User.signinRequired,User.adminRequired,Category.save)
-	app.get('/admin/category/list',User.signinRequired,User.adminRequired,Category.list)
+	app.get('/admin/category/new',User.signinRequired,User.adminRequired,Category.new);
+	app.post('/admin/category',User.signinRequired,User.adminRequired,Category.save);
+	app.get('/admin/category/list',User.signinRequired,User.adminRequired,Category.list);
+	//delete category
+	app.delete('/admin/category/list',User.signinRequired,User.adminRequired,Category.del);
 
 }

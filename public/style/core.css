@@ -1,0 +1,4 @@
+body {
+  padding-top: 70px;/*有顶部固定导航条时设置*/
+  padding-bottom: 50px;/*有底部固定导航条时设置*/
+}

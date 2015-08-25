@@ -1,5 +1,5 @@
 $(function(){
-	$('.del').click(function(e){
+	$('.movieDel').click(function(e){
 		var target=$(e.target)
 		var id=target.data('id')
 		var tr=$('.item-id-'+id)
@@ -13,7 +13,23 @@ $(function(){
 					tr.remove();
 				}
 			}
+		});
+	});
+	$('.categoryDel').click(function(e){
+		var target=$(e.target)
+		var id=target.data('id')
+		var tr=$('.cat-id-'+id)
+		$.ajax({
+			type:'DELETE',
+			url:'/admin/category/list/?id='+id
 		})
+		.done(function(results){
+			if(results.success===1){
+				if(tr.length>0){
+					tr.remove();
+				}
+			}
+		});
 	});
 	/**
 	 * 豆瓣API JSONP同步电影数据

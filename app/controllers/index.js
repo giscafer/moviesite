@@ -17,7 +17,7 @@ exports.index = function(req, res) {
                 console.log(err);
             }
             res.render('index', {
-                title: '电影狙击手 首页',
+                title: '首页',
                 categories: categories
             })
         })
