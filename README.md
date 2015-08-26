@@ -1,7 +1,17 @@
 # moviesite V0.2.1
 >nodejs开发一个关于电影的小站点
 
-### 项目功能
+>1、NodeJS+Express
+
+>2、MongoDB
+
+>3、模板引擎Jade + BootStrap
+
+nodejs v0.12.2、npm v2.7.4、mongodb v3.0
+
+其他依赖详细见：package.json文件
+
+### 功能
 
 >1、用户登录和注册
 
@@ -9,21 +19,9 @@
 
 >3、电影的分类管理和评论等
 
-###项目技术：
+### 技术：
 
->1、NodeJS+Express
 
->2、MongoDB
-
->3、模板引擎Jade
-
-nodejs v0.12.2
-
-npm v2.7.4
-
-mongodb v3.0
-
-其他依赖详细见：package.json文件
 
 ###使用方法
 
