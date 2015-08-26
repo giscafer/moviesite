@@ -33,5 +33,6 @@ var config = {
     admins: {
         // user_login_name: true // admin 可删除话题，编辑标签，设某人为达人
     },
+    pagecount:2
 };
 module.exports = config;

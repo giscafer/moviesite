@@ -53,4 +53,6 @@ module.exports = function(app) {
 	//delete category
 	app.delete('/admin/category/list',User.signinRequired,User.adminRequired,Category.del);
 
+	//results
+	app.get('/results/',Index.search);
 }
