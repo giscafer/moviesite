@@ -1,8 +1,15 @@
 .container
 	.row
-		.page-header
+		.page-header.clearfix
 			h1=title
-			small 电影狙击手
+			.col-md-4
+				small 电影狙击手
+			.col-md-8
+				form(method='GET',action='/results/')
+					.input-group.col-sm-4.pull-right
+						input.form-control(type='text',name='q',placeholder='输入关键字搜索')
+						span.input-group-btn
+							button.btn.btn-default(type='submit') 搜索
 .navbar.navbar-default.navbar-fixed-top
 	.container
 		.navbar-header
