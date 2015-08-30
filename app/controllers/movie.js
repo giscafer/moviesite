@@ -12,6 +12,13 @@ var path=require('path')
 exports.detail = function(req, res) {
         var id = req.params.id
         Movie.findById(id, function(err, movie) {
+            //对电影访客查看统计
+            Movie.update({_id:id},{$inc:{pv:1}},function(err){
+                if(err){
+                    console.log(err);
+                }
+            });
+            //查询展示电影评论
             Comment
                 .find({
                     'movie': id
@@ -23,9 +30,9 @@ exports.detail = function(req, res) {
                         title: movie.title,
                         movie: movie,
                         comments: comments,
-                    })
-                })
-        })
+                    });
+                });
+        });
     }
     //admin page
 exports.new = function(req, res) {
@@ -39,6 +46,8 @@ exports.new = function(req, res) {
 
     }
 //admin poster upload
+//保存上传海报（海报保存成功后再对电影信息保存，当上传附件过大的时候可能影响整体速度，
+//最好是在电影分类保存的时候讲上传海报地址传递过去（此时可能不能使用multipart）
 exports.savePoster=function(req,res,next){
     var posterData=req.files.uploadPoster;
     var filePath=posterData.path;

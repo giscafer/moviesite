@@ -14,6 +14,10 @@ var MovieSchema=new Schema({
 		type:ObjectId,
 		ref:'Category'
 	},
+	pv:{
+		type:Number,
+		default:0
+	},
 	meta:{//更新数据的时候的时间记录
 		createAt:{//创建时间
 			type:Date,
