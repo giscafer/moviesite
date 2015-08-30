@@ -2,7 +2,7 @@ extend ../layout
 block content
 	.container
 		.row
-			form.form-horizontal(method='post',action="/admin/movie/new")
+			form.form-horizontal(method='post',action="/admin/movie/new",enctype="multipart/form-data")
 				.form-group
 					label.col-sm-2.control-label(for="inputTitle") 豆瓣同步
 					.col-sm-10
@@ -54,6 +54,10 @@ block content
 					label.col-sm-2.control-label(for="inputPoster") 海报地址
 					.col-sm-10
 						input#inputPoster.col-sm-10.form-control(type="text",name="movie[poster]" value=movie.poster)
+				.form-group
+					label.col-sm-2.control-label(for="uploadPoster") 海报上传
+					.col-sm-10
+						input#uploadPoster(type="file",name="uploadPoster")
 				.form-group
 					label.col-sm-2.control-label(for="inputSummary") 简介
 					.col-sm-10

@@ -6,6 +6,8 @@ var CategoryController = require("./category");
 var Comment = require('../models/comment');
 var Eventproxy = require('eventproxy');
 var Config=require('../../config');
+var fs=require('fs');
+var path=require('path')
 //detail page
 exports.detail = function(req, res) {
         var id = req.params.id
@@ -36,13 +38,37 @@ exports.new = function(req, res) {
         });
 
     }
-    //admin post movie
+//admin poster upload
+exports.savePoster=function(req,res,next){
+    var posterData=req.files.uploadPoster;
+    var filePath=posterData.path;
+    var originalFilename=posterData.originalFilename;
+    console.log(req.files);
+    if(originalFilename){
+        fs.readFile(filePath,function(err,data){
+            var timestamp=Date.now();
+            var type=posterData.type.split('/')[1];
+            var poster=timestamp+'.'+type;
+            var newPath=path.join(__dirname,'../../','/public/upload/'+poster);
+            fs.writeFile(newPath,data,function(err){
+                req.poster=poster;
+                next();
+            });
+        });
+    }else{//没有图片上传则进入下一步
+        next();//save()
+    }
+}
+//admin post movie
 exports.save = function(req, res, next) {
         var id = req.body.movie._id;
         var movieObj = req.body.movie;
         var _movie;
         var ep = new Eventproxy();
         ep.fail(next);
+        if(req.poster){
+            movieObj.poster=req.poster;
+        }
         if (id) { //更新
             Movie.findById(id, function(err, movieOld) {
                 if (err) {

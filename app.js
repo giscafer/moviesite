@@ -5,7 +5,9 @@ var session = require('express-session')
 var mongoose = require('mongoose')
 var mongoStore = require('connect-mongodb')
 var morgan = require('morgan');
-var settings = require('./settings')
+var settings = require('./settings');
+var multipart = require('connect-multiparty');
+
 var port = process.env.PORT || 3000
 var app = express()
 	//连接方式
@@ -31,7 +33,8 @@ app.use(session({
 		url: dbUrl,
 		collection: 'sessions'
 	})
-}))
+}));
+app.use(multipart());
 app.use(express.static(__dirname + '/views'));
 app.use('/public', express.static(__dirname + '/public'));
 //本地开发环境信息日记输出

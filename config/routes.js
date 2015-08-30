@@ -1,9 +1,9 @@
 //路由处理层
-var Index = require('../app/controllers/index')
-var User = require('../app/controllers/user')
-var Movie = require('../app/controllers/movie')
-var Comment = require('../app/controllers/comment')
-var Category = require('../app/controllers/category')
+var Index = require('../app/controllers/index');
+var User = require('../app/controllers/user');
+var Movie = require('../app/controllers/movie');
+var Comment = require('../app/controllers/comment');
+var Category = require('../app/controllers/category');
 
 module.exports = function(app) {
 	//pre hander user持久化逻辑预处理
@@ -35,7 +35,7 @@ module.exports = function(app) {
 		//admin page
 	app.get('/admin/movie',User.signinRequired,User.adminRequired, Movie.new);
 		//admin post movie
-	app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.save);
+	app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.savePoster,Movie.save);
 		//list page
 	app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list);
 		//list delete movie
