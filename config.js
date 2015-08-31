@@ -4,13 +4,14 @@
 var path = require("path");
 
 var config = {
+    //调式模式（开发模式）
     debug: false,
     //是否允许注册
     allow_sign_up: true,
     // 站点名字
     name: '电影狙击手',
     // mongodb 配置
-    db: 'mongodb://127.0.0.1/moviesite_dev',
+    dbUrl: 'mongodb://localhost:27017/moviesite',
     // moviesite的域名
     host: 'localhost',
     // 程序运行的端口

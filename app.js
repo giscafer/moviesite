@@ -7,21 +7,21 @@ var mongoStore = require('connect-mongodb')
 var morgan = require('morgan');
 var settings = require('./settings');
 var multipart = require('connect-multiparty');
+var Config = require('./config');
 
-var port = process.env.PORT || 3000
-var app = express()
-	//连接方式
-var dbUrl = 'mongodb://localhost:27017/moviesite';
-mongoose.connect(dbUrl)
-	// var db = exports.Connection = mongoose.createConnection(settings.host,settings.db,{safe:false});
-app.set('views', './app/views/pages')
-app.set('view engine', 'jade')
-	// parse application/x-www-form-urlencoded ,false的时候无法req.body.user的值
+var port = process.env.PORT || 3000;
+var app = express();
+//链接数据库
+mongoose.connect(Config.dbUrl);
+//设置模板引擎
+app.set('views', './app/views/pages');
+app.set('view engine', 'jade');
+// parse application/x-www-form-urlencoded ,false的时候无法req.body.user的值
 app.use(bodyParser.urlencoded({
 		extended: true
-	}))
+}));
 	//cookie
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(session({
 	resave: false,
 	saveUninitialized: true,
@@ -30,7 +30,7 @@ app.use(session({
 	},
 	secret: 'moviesite',
 	store: new mongoStore({
-		url: dbUrl,
+		url: Config.dbUrl,
 		collection: 'sessions'
 	})
 }));
@@ -38,7 +38,8 @@ app.use(multipart());
 app.use(express.static(__dirname + '/views'));
 app.use('/public', express.static(__dirname + '/public'));
 //本地开发环境信息日记输出
-if ('development' === app.get('env')) {
+// if ('development' === app.get('env')) {
+if (Config.debug) {
 	app.set('showStackError', true);
 	app.use(morgan(':method :url :status :response-time ms - :res[content-length]'));
 	app.locals.pretty = true;
@@ -47,5 +48,5 @@ if ('development' === app.get('env')) {
 //路由处理
 require('./config/routes')(app)
 app.listen(port);
-app.locals.moment = require('moment')
+app.locals.moment = require('moment');
 console.log('moviesite started on port ' + port);
