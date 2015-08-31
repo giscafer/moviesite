@@ -5,10 +5,10 @@ exports.save = function(req, res) {
 		var _comment = req.body.comment;
 		var movieId=_comment.movie
 		var comment=new Comment(_comment)
-		if (_comment.content=='') {
+		if (_comment.content==='') {
 			console.warn('亲～评论内容不能为空！')
 			return;
-		};
+		}
 		if(_comment.cid){
 			Comment.findById(_comment.cid,function(err,comment){
 				var reply={

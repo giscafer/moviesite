@@ -16,6 +16,7 @@ var app = require('../../app');
 var mongoose = require('mongoose');
 var User = require('../../app/models/user');
 
+var user;
 //test
 describe('<Unit Test', function() {
     describe('Model User:', function() {

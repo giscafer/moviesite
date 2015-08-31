@@ -71,11 +71,9 @@ exports.signup = function(req, res) {
             console.log(err);
         }
         if (user) { //
-            console.log("已存在注册的用户名，则跳转登录页面！")
             return res.redirect('/signin')
         } else {
-            console.log("注册用户！")
-            var user = new User(_user);
+            user = new User(_user);
             user.save(function(err, user) {
                 if (err) {
                     console.log(err)

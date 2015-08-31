@@ -1,16 +1,13 @@
 var _ = require('underscore');
-var lodash = require('lodash');
 var Movie = require('../models/movie')
-var Category = require("../models/category");
-var CategoryController = require("./category");
+var Category = require('../models/category');
 var Comment = require('../models/comment');
 var Eventproxy = require('eventproxy');
-var Config=require('../../config');
 var fs=require('fs');
-var path=require('path')
+var path=require('path');
 //detail page
 exports.detail = function(req, res) {
-        var id = req.params.id
+        var id = req.params.id;
         Movie.findById(id, function(err, movie) {
             //对电影访客查看统计
             Movie.update({_id:id},{$inc:{pv:1}},function(err){
@@ -81,12 +78,12 @@ exports.save = function(req, res, next) {
         if (id) { //更新
             Movie.findById(id, function(err, movieOld) {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
                 _movie = _.extend(movieOld, movieObj);
                 _movie.save(function(err, movie) {
                     if (err) {
-                        console.log(err)
+                        console.log(err);
                     }
                     //此处应该控制，如果填写了分类，则radio选择无效，自定义优先级最高
                     var categoryId = _movie.category;
@@ -106,14 +103,14 @@ exports.save = function(req, res, next) {
                             });
                         } else {
                             //检查分类中是否有该电影，避免重复添加
-                            if (_category.movies.some(function(item) {
+                            if (!_category.movies.some(function(item) {
                                     console.log(item.toString() === movie._id.toString());
                                     return item.toString() === movie._id.toString();
-                                })) {} else {
+                                })) {
+
                                 _category.movies.push(movie._id);
                             }
                             _category.save(function(err, category) {
-                                console.log('category+++3' + category)
                                 res.redirect('/movie/' + movie._id);
                             });
                         }
@@ -121,9 +118,8 @@ exports.save = function(req, res, next) {
                 });
             })
         } else { //新增
-            _movie = new Movie(movieObj)
+            _movie = new Movie(movieObj);
             var categoryId = _movie.category;
-            // console.log('categoryID---' + categoryId);
             //如果没有选择分类，则新建分类
             if (!categoryId) {
                 var category = new Category({
@@ -166,7 +162,7 @@ exports.save = function(req, res, next) {
 exports.list = function(req, res) {
         Movie.fetch(function(err, movies) {
             if (err) {
-                console.log(err)
+                console.log(err);
             }
             res.render('list', {
                 title: '电影列表页',
@@ -176,14 +172,14 @@ exports.list = function(req, res) {
     }
     //list delete movie
 exports.del = function(req, res) {
-        var id = req.query.id
+        var id = req.query.id;
 
         if (id) {
             Movie.remove({
                 _id: id
             }, function(err, movie) {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 } else {
                     res.json({
                         success: 1
@@ -194,8 +190,8 @@ exports.del = function(req, res) {
     }
     //admin update movie
 exports.update = function(req, res) {
-    var id = req.params.id
-    console.log(id)
+    var id = req.params.id;
+    console.log(id);
 
     if (id) {
         Movie.findById(id, function(err, movie) {

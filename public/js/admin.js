@@ -60,14 +60,14 @@ $(function(){
 					index=0;
 				for (var i = 0; i < $cat.length; i++) {
 					var categoryName=$($cat[i]).text().trim();
-					if(categoryName==data.genres[0]){
+					if(categoryName===data.genres[0]){
 						flag=true;
 						index=i;
 					}
-				};
+				}
 				//存在可选的radio
 				if(flag){
-					$cat[index].find('input').attr("checked","checked");
+					$cat[index].find('input').attr('checked','checked');
 					$cat[index].find('input').trigger('click');
 				}else{//没有可选的时候
 					$('#inputCategory').val(data.genres[0]);

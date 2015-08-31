@@ -15,7 +15,7 @@ exports.save = function(req, res) {
         var category = new Category(_category)
         category.save(function(err, category) {
             if (err) {
-                console.log(err)
+                console.log(err);
             }
             res.redirect('/admin/category/list')
         })
@@ -27,7 +27,6 @@ exports.list = function(req, res) {
             if (err) {
                 console.log(err)
             }
-            console.log("----------------")
             console.log(categories[0].name)
             console.log(categories)
             res.render('categorylist', {
