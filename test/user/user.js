@@ -1,5 +1,5 @@
 /**
- * 测试用例（需要修改）
+ * user测试用例
  * @type {[type]}
  */
 var crypto = require('crypto');
@@ -24,11 +24,13 @@ describe('<Unit Test', function() {
                 name: getRandomString(),
                 password: 'password'
             }
+            console.log('《《《《《测试开始');
             done();
         });
 
-        after(function() {
-            console.log('after');
+        after(function(done) {
+            console.log('测试结束》》》》》》');
+            done();
         });
 
         describe('Before Method save:', function() {
