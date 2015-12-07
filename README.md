@@ -45,3 +45,19 @@ nodejs v0.12.2、npm v2.7.4、mongodb v3.0
 >2015年8月31日00:13:38 添加统计电影查看PV和海报上传功能
 
 >2015年8月31日23:46:00 增加单元测试
+
+### 界面展示
+
+![网站界面][1]
+
+![电影详情][2]
+
+![电影管理][3]
+
+![电影新增界面][4]
+
+
+[1]: https://github.com/giscafer/moviesite/blob/master/public/upload/intro.png
+[2]: https://github.com/giscafer/moviesite/blob/master/public/upload/intro_movie_detail.png
+[3]: https://github.com/giscafer/moviesite/blob/master/public/upload/intro_movie_admin.png
+[4]: https://github.com/giscafer/moviesite/blob/master/public/upload/intro_movie_add.png
